@@ -22,16 +22,18 @@
 <section class="card-container">
   {% for car in cars %}
     <div class="card">
-      <div class="card-content">
-        <div class="card-img-container">
-          <img 
+      <a href="{% url "car-detail" car.id %}">
+        <div class="card-content">
+          <div class="card-img-container">
+            <img 
             src="{% static 'images/sk8r-boi-cat.svg' %}" 
             alt="A skater boy cat"
-          >
+            >
+          </div>
+          <h2 class="card-title">{{ car.year }} {{ car.make }} {{ car.model }}</h2>
+          <p><small>{{ car.description }}</small></p>
         </div>
-        <h2 class="card-title">{{ car.year }} {{ car.make }} {{ car.model }}</h2>
-        <p><small>{{ car.description }}</small></p>
-      </div>
+      </a>
     </div>
   {% endfor %}
 </section>
