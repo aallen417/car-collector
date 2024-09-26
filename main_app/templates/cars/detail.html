@@ -21,6 +21,10 @@
   <div class="cat-details">
     <h1>{{ car.year }} {{ car.make }} {{ car.model }}</h1>
     <p>{{ car.description }}</p>
+    <div class="cat-actions">
+      <a href="{% url 'car-update' car.id %}" class="btn warn">Edit</a>
+      <a href="{% url 'car-delete' car.id %}" class="btn danger">Delete</a>
+    </div>
   </div>
 </section>
 
