@@ -36,3 +36,23 @@
   margin: 5px 0;
   font-size: var(--font-reg);
 }
+
+.sports-car {
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.sedan {
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.crossover {
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.truck {
+  max-width: 250px;
+  max-height: 250px;
+}

@@ -12,12 +12,35 @@
 {% block content %}
 
 <section class="cat-container">
-  <div class="cat-img">
-    <img 
-      src="{% static 'images/sk8r-boi-cat.svg' %}" 
-      alt="A skater boy cat"
-    >
-  </div>
+  {% if car.type == 'S' %}
+    <div class="card-img-container">
+      <img class="sports-car" 
+        src="{% static 'images/Sport.jpeg' %}"
+        alt="A {{car.type}}"
+      >
+    </div>
+  {% elif car.type == 'L' %}
+    <div class="card-img-container">
+      <img class="sedan" 
+        src="{% static 'images/Sedan.jpeg' %}"
+        alt="A {{car.type}}"
+      >
+    </div>
+  {% elif car.type == 'C' %}
+    <div class="card-img-container">
+      <img class="crossover" 
+        src="{% static 'images/SUV.jpeg' %}"
+        alt="A {{car.type}}"
+      >
+    </div>
+  {% elif car.type == 'T' %}
+    <div class="card-img-container">
+      <img class="Truck" 
+        src="{% static 'images/Truck.jpeg' %}"
+        alt="A {{car.type}}"
+      >
+    </div>
+  {% endif %}
   <div class="cat-details">
     <h1>{{ car.year }} {{ car.make }} {{ car.model }}</h1>
     <p>{{ car.description }}</p>

@@ -8,14 +8,13 @@
 {% block content %}
 
 <div class="page-header">
-  {% if car %}
-    <h1>Edit {{car.year}} {{car.make}} {{ car.model }}</h1>
-  {% else %}
-    <h1>Add a Car</h1>
-  {% endif %}
-  <img src="{% static 'images/Sport.jpeg' %}" alt="A generic {{car.type}}"/>
+  <h1>Sign Up</h1>
+  <img src="{% static 'images/nerd-cat.svg' %}" alt="A cat using a computer"/>
 </div>
-<form action="" method="post" class="form-container">
+{% if error_message %}
+  <p class="red-text">{{ error_message }}</p>
+{% endif %}
+<form action="" method="post" class="form-container" autocomplete="off">
   {% csrf_token %}
   <table>
     {{ form.as_table }}
