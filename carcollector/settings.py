@@ -14,6 +14,7 @@ import environ
 import os
 env = environ.Env()
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,10 +27,10 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if not 'ON_HEROKU' in os.environ:
+    DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -41,16 +42,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'carcollector.urls'
@@ -77,17 +81,27 @@ WSGI_APPLICATION = 'carcollector.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-   'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('NEON_DATABASE_NAME'),
-        'USER': env('NEON_USER'),
-        'PASSWORD': env('NEON_PASSWORD'),
-        'HOST': env('NEON_HOST'),
-        'PORT': '5432',
-        'OPTIONS': {'sslmode': 'require'}
+if 'ON_HEROKU' in os.environ:
+    DATABASES = {
+        "default": dj_database_url.config(
+            env='DATABASE_URL',
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=True,
+        ),
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': env('NEON_DATABASE_NAME'),
+            'USER': env('NEON_USER'),
+            'PASSWORD': env('NEON_PASSWORD'),
+            'HOST': env('NEON_HOST'),
+            'PORT': '5432',
+            'OPTIONS': {'sslmode': 'require'}
+        }
+    }
 
 
 # Password validation
@@ -128,6 +142,8 @@ STATIC_URL = 'static/'
 
 LOGIN_REDIRECT_URL = 'car-index'
 LOGOUT_REDIRECT_URL = 'home'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifest StaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
