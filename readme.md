@@ -10,7 +10,7 @@ The car collector allows for you to keep track of cars. These can be cars you ow
 Each car you add you can be specific to the year manufactured, make, model, and even leave a personalized description of the car. You will be the only user able to see your collection of cars.
 
 ## Getting Started
-* [Open The Car Collector]()
+* [Open The Car Collector](https://car-collector-aa-7110775ee97e.herokuapp.com/)
 * [Link to my Trello Board](https://trello.com/b/lisXkczl/car-collector)
 * [Link to my ERD and Wireframes on Whimsical](https://whimsical.com/car-collector-XkpoJkuzrtXYfTxUyWS6Rj)
 
