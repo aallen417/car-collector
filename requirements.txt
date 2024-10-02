@@ -4,4 +4,3 @@ django-environ>=0.10.0
 dj-database-url==2.2.0
 gunicorn==23.0.0
 whitenoise==6.7.0
-python==3.12.7
